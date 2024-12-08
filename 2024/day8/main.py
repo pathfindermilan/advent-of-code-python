@@ -14,16 +14,15 @@ a1 = set()
 a2 = set()
 for cor in dict_symbols.values():
     for (row1, col1), (row2, col2) in combinations(cor, 2):
-        for x, y in [(2*row1-row2, 2*col1-col2), (2*row2-row1, 2*col2-col1)]:
-            if 0 <= x < len(l) and 0 <= y < len(l[0]):
+        for x, y in [(row1 + (row1-row2), col1 + (col1-col2)), (row2 + (row2-row1), col2 + (col2-col1))]:
+            if x in range(len(l)) and y in range(len(l[0])):
                 a1.add((x, y))
         # part 2
-        dr, dc = row2 - row1, col2 - col1
-        for direction in [1, -1]:
+        for d in [1, -1]:
             x, y = row1, col1
-            while 0 <= x < len(l) and 0 <= y < len(l[0]):
+            while x in range(len(l)) and y in range(len(l[0])):
                 a2.add((x, y))
-                x += direction * dr
-                y += direction * dc
+                x += d * (row2 - row1)
+                y += d * (col2 - col1)
 print(len(a1))
 print(len(a2))
